@@ -17,9 +17,11 @@ class TreeOne(WorldObject):
 
     colors = {}
 
-    def __init__(self):
-        shade = random.randint(0, 80)
+    def __init__(self, size: float = 1.0, shade: float = 1.0):
+        self.size = size
+        self.shade = shade
+
         self.colors = {
-            1: (255 - shade, 119 - shade, 0),
-            2: (0, 255 - shade, 0)
+            1: (self.shade * 200, self.shade * 119, 0),
+            2: (0, self.shade * 180, 0)
         }

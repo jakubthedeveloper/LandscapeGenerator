@@ -6,15 +6,15 @@ class Gui:
     self.screen = screen
     self.manager = pygame_gui.UIManager(screen.get_size())
     self.texts = {
-        'tree_space': ''
+        'test': ''
     }
 
-    self.button_tree_space_plus = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 20), (100, 50)),
-                       text='tree space +',
+    self.button_test_one = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 20), (100, 50)),
+                       text='test 1',
                        manager=self.manager)
 
-    self.button_tree_space_minus = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (100, 50)),
-                       text='tree space -',
+    self.button_test_two = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (100, 50)),
+                       text='test 2',
                        manager=self.manager)
 
     self.button_init_trees = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 120), (100, 50)),
@@ -27,8 +27,8 @@ class Gui:
     self.manager.update(time_delta)
     self.manager.draw_ui(self.screen)
 
-    text_surface = self.font.render('tree space ' + self.texts['tree_space'], True, (255, 255, 255))
-    self.screen.blit(text_surface, dest=(600,20))
+    text_surface = self.font.render(self.texts['test'], True, (255, 255, 255))
+    self.screen.blit(text_surface, dest=(10,180))
 
   def process_event(self, event):
     self.manager.process_events(event)
