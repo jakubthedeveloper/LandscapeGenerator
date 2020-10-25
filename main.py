@@ -9,7 +9,7 @@ import math
 from datetime import datetime
 from gui import Gui
 from world_object import WorldObject
-from tree_one import TreeOne
+from tree import Tree
 from cloud import Cloud
 from display import Display
 
@@ -20,7 +20,7 @@ black = (0, 0, 0)
 (width, height) = (800, 600) # Dimension of the window
 screen = pygame.display.set_mode((width, height)) # Making of the screen
 pygame.display.set_caption("Landscape generator")
-tree_space = 130
+tree_space = 150
 test_text = "test"
 clouds_offset = 0
 
@@ -40,7 +40,7 @@ def initTrees():
     size = random.randint(60, 100) / 100
     shade = size # achieve depth by relating shade and size
 
-    trees.append(TreeOne(size, shade))
+    trees.append(Tree(size, shade))
 
 def initClouds():
   clouds.clear()

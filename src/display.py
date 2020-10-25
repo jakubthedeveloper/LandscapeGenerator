@@ -12,6 +12,18 @@ class Display:
     self.width, self.height = screen.get_size()
 
   def placeObject(self, object: WorldObject, offset_x, offset_y):
+    if object.image == None:
+      return self.placePattern(object, offset_x, offset_y)
+
+    return self.placeImage(object, offset_x, offset_y)
+
+  def placeImage(self, object: WorldObject, offset_x, offset_y):
+    self.screen.blit(
+        pygame.transform.rotozoom(object.image, 0, object.size),
+        (offset_x, offset_y)
+    )
+
+  def placePattern(self,  object: WorldObject, offset_x, offset_y):
     for y in range(len(object.pattern)):
       for x in range(len(object.pattern[y])):
         color = object.getColor(x, y)
@@ -26,6 +38,7 @@ class Display:
               int(self.pixel_size * object.size)
             )
           )
+
 
   def drawGrass(self):
     pygame.draw.rect(

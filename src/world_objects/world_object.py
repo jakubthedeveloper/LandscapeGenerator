@@ -1,5 +1,6 @@
 class WorldObject:
     pattern = []
+    image = None
     colors = {}
     size = 1.0
     shade = 1.0
