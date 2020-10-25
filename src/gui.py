@@ -13,8 +13,8 @@ class Gui:
                        text='test 1',
                        manager=self.manager)
 
-    self.button_test_two = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (100, 50)),
-                       text='test 2',
+    self.button_init_clouds = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (100, 50)),
+                       text='init clouds',
                        manager=self.manager)
 
     self.button_init_trees = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 120), (100, 50)),

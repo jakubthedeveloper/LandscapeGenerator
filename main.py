@@ -22,6 +22,8 @@ pygame.display.set_caption("Landscape generator")
 pixel_size = 20
 tree_space = 130
 test_text = "test"
+clouds_offset = 0
+clouds_speed = 120
 
 background = pygame.Surface((width, height))
 background.fill(pygame.Color('#79B2EC'))
@@ -64,7 +66,7 @@ def initClouds():
     size = random.randint(80, 100) / 100
     shade = size # achieve depth by relating shade and size
 
-    clouds.append(CloudOne(size, shade))
+    clouds.append(CloudOne(size, shade, i * 350, random.randint(30, 50)))
 
 
 clock = pygame.time.Clock()
@@ -83,8 +85,8 @@ while is_running:
       if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
         if event.ui_element == gui.button_test_one:
           test_text = "test 1"
-        if event.ui_element == gui.button_test_two:
-          test_text = "test 2"
+        if event.ui_element == gui.button_init_clouds:
+          initClouds()
         if event.ui_element == gui.button_init_trees:
           initTrees()
 
@@ -102,8 +104,16 @@ while is_running:
   for i in range(len(trees)):
     placeObject(trees[i], 45 + (i * tree_space), 400)
 
+  clouds_offset += time_delta * 80
+  clouds_offset = clouds_offset % width
+
   for i in range(len(clouds)):
-    placeObject(clouds[i], 100 + i * 350, 40)
+    clouds[i].offset_x = clouds[i].offset_x + (time_delta * clouds_speed)
+
+    if clouds[i].offset_x > width:
+        clouds[i].offset_x = -100
+
+    placeObject(clouds[i], clouds[i].offset_x, clouds[i].offset_y)
 
   gui.set_text('test', str(test_text))
   gui.update(time_delta)
