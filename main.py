@@ -10,7 +10,8 @@ from datetime import datetime
 from gui import Gui
 from world_object import WorldObject
 from tree_one import TreeOne
-from cloud_one import CloudOne
+from cloud import Cloud
+from display import Display
 
 pygame.init()
 
@@ -19,36 +20,18 @@ black = (0, 0, 0)
 (width, height) = (800, 600) # Dimension of the window
 screen = pygame.display.set_mode((width, height)) # Making of the screen
 pygame.display.set_caption("Landscape generator")
-pixel_size = 20
 tree_space = 130
 test_text = "test"
 clouds_offset = 0
-clouds_speed = 120
 
 background = pygame.Surface((width, height))
 background.fill(pygame.Color('#79B2EC'))
 
 gui = Gui(screen)
+display = Display(screen)
 
 trees = []
 clouds = []
-
-def placeObject(object: WorldObject, offset_x, offset_y):
-  global board
-  for y in range(len(object.pattern)):
-    for x in range(len(object.pattern[y])):
-      color = object.getColor(x, y)
-      if color:
-        pygame.draw.rect(
-          screen,
-          color,
-          (
-            int(x * math.floor(pixel_size * object.size)) + offset_x,
-            int(y * math.floor(pixel_size * object.size)) + offset_y,
-            int(pixel_size * object.size),
-            int(pixel_size * object.size)
-          )
-        )
 
 def initTrees():
   trees.clear()
@@ -62,12 +45,18 @@ def initTrees():
 def initClouds():
   clouds.clear()
 
-  for i in range(0, 2):
+  for i in range(0, 3):
     size = random.randint(80, 100) / 100
     shade = size # achieve depth by relating shade and size
 
-    clouds.append(CloudOne(size, shade, i * 350, random.randint(30, 50)))
-
+    clouds.append(Cloud(
+                    i % 2,
+                    size,
+                    shade, i * 350,
+                    random.randint(30, 50),
+                    random.randint(20, 80)
+                  )
+    )
 
 clock = pygame.time.Clock()
 is_running = True
@@ -94,26 +83,21 @@ while is_running:
 
   screen.blit(background, (0, 0))
 
-  #grass
-  pygame.draw.rect(
-    screen,
-    (0, 78, 0),
-    (0, 500, width, height)
-  )
+  display.drawGrass()
 
   for i in range(len(trees)):
-    placeObject(trees[i], 45 + (i * tree_space), 400)
+    display.placeObject(trees[i], 45 + (i * tree_space), 400)
 
   clouds_offset += time_delta * 80
   clouds_offset = clouds_offset % width
 
   for i in range(len(clouds)):
-    clouds[i].offset_x = clouds[i].offset_x + (time_delta * clouds_speed)
+    clouds[i].offset_x = clouds[i].offset_x + (time_delta * clouds[i].speed)
 
     if clouds[i].offset_x > width:
         clouds[i].offset_x = -100
 
-    placeObject(clouds[i], clouds[i].offset_x, clouds[i].offset_y)
+    display.placeObject(clouds[i], clouds[i].offset_x, clouds[i].offset_y)
 
   gui.set_text('test', str(test_text))
   gui.update(time_delta)
