@@ -9,6 +9,7 @@ import math
 from datetime import datetime
 from gui import Gui
 from world_object import WorldObject
+from mountain import Mountain
 from tree import Tree
 from cloud import Cloud
 from display import Display
@@ -21,17 +22,29 @@ black = (0, 0, 0)
 screen = pygame.display.set_mode((width, height)) # Making of the screen
 pygame.display.set_caption("Landscape generator")
 tree_space = 150
-test_text = "test"
+mountain_space = 220
+test_text = ""
 clouds_offset = 0
+pixel_size = 20
 
 background = pygame.Surface((width, height))
 background.fill(pygame.Color('#79B2EC'))
 
 gui = Gui(screen)
-display = Display(screen)
+display = Display(screen, pixel_size)
 
+mountains = []
 trees = []
 clouds = []
+
+def initMountains():
+  mountains.clear()
+
+  for i in range(0,3):
+      size = random.randint(160, 200) / 100
+      shade = random.randint(80, 100) / 100
+
+      mountains.append(Mountain(size, shade))
 
 def initTrees():
   trees.clear()
@@ -61,6 +74,7 @@ def initClouds():
 clock = pygame.time.Clock()
 is_running = True
 
+initMountains()
 initTrees()
 initClouds()
 
@@ -72,16 +86,19 @@ while is_running:
 
     if event.type == pygame.USEREVENT:
       if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-        if event.ui_element == gui.button_test_one:
-          test_text = "test 1"
-        if event.ui_element == gui.button_init_clouds:
+        if event.ui_element == gui.button_restart_mountains:
+          initMountains()
+        if event.ui_element == gui.button_restart_clouds:
           initClouds()
-        if event.ui_element == gui.button_init_trees:
+        if event.ui_element == gui.button_restart_trees:
           initTrees()
 
     gui.process_event(event)
 
   screen.blit(background, (0, 0))
+
+  for i in range(len(mountains)):
+      display.placeObject(mountains[i], 0 + (i * mountain_space), height - 92 - mountains[i].height(pixel_size))
 
   display.drawGrass()
 

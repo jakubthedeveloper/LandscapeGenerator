@@ -9,16 +9,16 @@ class Gui:
         'test': ''
     }
 
-    self.button_test_one = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 20), (100, 50)),
-                       text='test 1',
+    self.button_restart_mountains = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 20), (140, 50)),
+                       text='restart mountains',
                        manager=self.manager)
 
-    self.button_init_clouds = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (100, 50)),
-                       text='init clouds',
+    self.button_restart_clouds = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 70), (140, 50)),
+                       text='restart clouds',
                        manager=self.manager)
 
-    self.button_init_trees = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 120), (100, 50)),
-                       text='init trees',
+    self.button_restart_trees = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 120), (140, 50)),
+                       text='restart trees',
                        manager=self.manager)
 
     self.font = pygame.font.Font(pygame.font.get_default_font(), 18)

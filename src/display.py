@@ -5,11 +5,11 @@ import pygame
 import math
 
 class Display:
-  pixel_size = 20
 
-  def __init__(self, screen):
+  def __init__(self, screen, pixel_size):
     self.screen = screen
     self.width, self.height = screen.get_size()
+    self.pixel_size = pixel_size
 
   def placeObject(self, object: WorldObject, offset_x, offset_y):
     if object.image == None:
