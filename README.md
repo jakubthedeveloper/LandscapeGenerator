@@ -6,3 +6,6 @@ Simple python/pygame application for generating pixelated landscapes with clouds
 
 ## Usage
 python3 main.py
+
+## Blog
+🇵🇱 https://programisty-dzien-powszedni.pl/generator-pikselowych-krajobrazow-z-pygame/
